@@ -1,0 +1,6 @@
+.godot/
+build/
+android/
+android_plugin/.gradle/
+android_plugin/plugin/build/
+android_plugin/local.properties
