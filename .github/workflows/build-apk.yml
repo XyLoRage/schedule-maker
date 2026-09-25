@@ -53,6 +53,14 @@ jobs:
           echo "${GODOT_VERSION}.stable" > android/.build_version
           touch android/build/.gdignore
 
+      - name: Install the NDK Godot's template uses (lets Gradle strip debug symbols)
+        run: |
+          ndk=$(grep -rhoP 'ndkVersion\s*[:=]?\s*["\x27]\K[0-9.]+' android/build/*.gradle | head -1 || true)
+          echo "Template NDK version: ${ndk:-none found}"
+          if [ -n "$ndk" ]; then
+            yes | "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" "ndk;$ndk" > /dev/null || echo "::warning::Could not install NDK $ndk"
+          fi
+
       - name: Configure Godot editor settings and signing key
         env:
           KEYSTORE_BASE64: ${{ secrets.KEYSTORE_BASE64 }}
