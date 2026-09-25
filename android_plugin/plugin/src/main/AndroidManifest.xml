@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <uses-permission android:name="android.permission.SET_WALLPAPER" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+
+    <application>
+        <!-- Registers this plugin with Godot (Android plugin v2). -->
+        <meta-data
+            android:name="org.godotengine.plugin.v2.ScheduleWallpaper"
+            android:value="com.schedulemaker.wallpaper.ScheduleWallpaperPlugin" />
+
+        <!-- Runs without the app open: at midnight, after a reboot, and when the time/date changes. -->
+        <receiver
+            android:name="com.schedulemaker.wallpaper.DailyWallpaperReceiver"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="android.intent.action.MY_PACKAGE_REPLACED" />
+                <action android:name="android.intent.action.TIME_SET" />
+                <action android:name="android.intent.action.TIMEZONE_CHANGED" />
+            </intent-filter>
+        </receiver>
+    </application>
+</manifest>
