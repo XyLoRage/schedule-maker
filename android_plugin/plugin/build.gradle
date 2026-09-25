@@ -1,0 +1,29 @@
+plugins {
+    id "com.android.library"
+}
+
+android {
+    namespace "com.schedulemaker.wallpaper"
+    compileSdk 35
+
+    defaultConfig {
+        minSdk 24
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+}
+
+// Rename the output so the Godot export plugin can find it.
+android.libraryVariants.all { variant ->
+    variant.outputs.all { output ->
+        outputFileName = "ScheduleWallpaper-${variant.name}.aar"
+    }
+}
+
+dependencies {
+    // Must match the Godot version you export with.
+    compileOnly "org.godotengine:godot:4.6.2.stable"
+}
